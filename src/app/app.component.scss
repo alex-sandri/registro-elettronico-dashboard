@@ -1,0 +1,15 @@
+:host
+{
+    display: grid;
+    grid-template-areas:
+        "header"
+        "main";
+    grid-template-rows: min-content auto;
+    height: 100%;
+}
+
+main
+{
+    display: grid;
+    place-items: center;
+}
