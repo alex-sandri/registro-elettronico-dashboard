@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ApolloError } from '@apollo/client/core';
@@ -54,10 +55,20 @@ export class AppComponent
       })
       .catch((error: ApolloError) =>
       {
+        let message: string;
+
+        message = error.message;
+
+        if (error.networkError instanceof HttpErrorResponse)
+        {
+          message = error.networkError.error.errors[0].message;
+        }
+
+        console.log(error.networkError);
         this.dialog.open(AlertDialogComponent, {
           data: {
             title: "Errore",
-            message: error.message,
+            message,
           },
         });
       });
