@@ -2,10 +2,12 @@
 
 <main>
     <h1>Accedi</h1>
-    <form>
+    <form (submit)="onSubmit($event)">
         <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
             <input
+                #email
+
                 type="email"
                 autocomplete="email"
                 required
@@ -15,12 +17,15 @@
         <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
             <input
-                type="password"
+                #password
+
+                [type]="showPassword ? 'text' : 'password'"
                 autocomplete="current-password"
                 required
                 matInput
             >
             <button
+                type="button"
                 mat-icon-button
                 matSuffix
                 (click)="showPassword = !showPassword"
@@ -31,6 +36,7 @@
             </button>
         </mat-form-field>
         <button
+            type="submit"
             mat-raised-button
             color="primary"
         >
