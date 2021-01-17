@@ -2,23 +2,39 @@
 
 <main>
     <h1>Accedi</h1>
-    <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input
-            type="email"
-            autocomplete="email"
-            required
-            matInput
+    <form>
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input
+                type="email"
+                autocomplete="email"
+                required
+                matInput
+            >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+                type="password"
+                autocomplete="current-password"
+                required
+                matInput
+            >
+            <button
+                mat-icon-button
+                matSuffix
+                (click)="showPassword = !showPassword"
+                [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+                [attr.aria-pressed]="showPassword"
+            >
+                <mat-icon>{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <button
+            mat-raised-button
+            color="primary"
         >
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input
-            type="password"
-            autocomplete="current-password"
-            required
-            matInput
-        >
-    </mat-form-field>
-    <button mat-raised-button color="primary">Accedi</button>
+            Accedi
+        </button>
+    </form>
 </main>
