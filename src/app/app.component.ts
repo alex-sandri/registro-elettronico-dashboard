@@ -1,9 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ApolloError } from '@apollo/client/core';
-import { Apollo, gql } from 'apollo-angular';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
+import { ApiService } from './services/api/api.service';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +20,7 @@ export class AppComponent
   @ViewChild("password")
   passwordInput?: ElementRef<HTMLInputElement>;
 
-  constructor (private apollo: Apollo, private dialog: MatDialog)
+  constructor (private api: ApiService, private dialog: MatDialog)
   {}
 
   onSubmit(e: Event)
@@ -32,45 +30,23 @@ export class AppComponent
     const email = this.emailInput?.nativeElement.value ?? "";
     const password = this.passwordInput?.nativeElement.value ?? "";
 
-    this.apollo
-      .mutate({
-        mutation: gql`
-          mutation CreateAuthToken($email: Email!, $password: Password!)
-          {
-            createAuthToken(email: $email, password: $password)
-            {
-              id
-            }
-          }
-        `,
-        variables: {
-          email,
-          password,
-        },
-      })
-      .toPromise()
+    this.api
+      .createAuthToken({ email, password })
       .then(result =>
       {
-        localStorage.setItem("token", (result.data as any).createAuthToken.id)
-      })
-      .catch((error: ApolloError) =>
-      {
-        let message: string;
-
-        message = error.message;
-
-        if (error.networkError instanceof HttpErrorResponse)
+        if (result.error)
         {
-          message = error.networkError.error.errors[0].message;
+          this.dialog.open(AlertDialogComponent, {
+            data: {
+              title: "Errore",
+              message: result.error,
+            },
+          });
         }
-
-        console.log(error.networkError);
-        this.dialog.open(AlertDialogComponent, {
-          data: {
-            title: "Errore",
-            message,
-          },
-        });
+        else
+        {
+          // TODO: Redirect to account page
+        }
       });
   }
 }
