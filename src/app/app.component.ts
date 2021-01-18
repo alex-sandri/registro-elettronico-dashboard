@@ -35,12 +35,12 @@ export class AppComponent
 
     const result = await this.api.createAuthToken({ email, password });
 
-    if (result.error)
+    if (result.errors)
     {
       this.dialog.open(AlertDialogComponent, {
         data: {
           title: "Errore",
-          message: result.error,
+          message: result.errors[0],
         },
       });
     }

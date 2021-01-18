@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ApolloError } from '@apollo/client/core';
-import { Apollo, gql } from 'apollo-angular';
+import { GraphQLError } from 'graphql';
 
 type TCreateAuthTokenResponseDataType = { id: string };
 
 interface IApiServiceResponse<T>
 {
   data?: T;
-  error?: string;
+  errors?: string[];
 }
 
 @Injectable({
@@ -15,39 +14,32 @@ interface IApiServiceResponse<T>
 })
 export class ApiService
 {
-  constructor(private apollo: Apollo)
-  {}
+  private readonly ENDPOINT = "http://localhost:4000/graphql";
 
   public async createAuthToken({ email, password }: { email: string, password: string }): Promise<IApiServiceResponse<TCreateAuthTokenResponseDataType>>
   {
-    return new Promise(resolve =>
-    {
-      const response: IApiServiceResponse<TCreateAuthTokenResponseDataType> = {};
-
-      this.apollo
-        .mutate({
-          mutation: gql`
-            mutation CreateAuthToken($email: Email!, $password: Password!)
-            {
-              createAuthToken(email: $email, password: $password)
-              { id }
-            }
-          `,
-          variables: { email, password },
-        })
-        .toPromise()
-        .then(result =>
-        {
-          response.data = (result.data as any).createAuthToken.data as TCreateAuthTokenResponseDataType;
-
-          resolve(response);
-        })
-        .catch((error: ApolloError) =>
-        {
-          response.error = error.message;
-
-          resolve(response);
-        });
+    const response = await fetch(this.ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query: `
+          mutation
+          {
+            createAuthToken(email: "${email}", password: "${password}")
+            { id }
+          }
+        `,
+      }),
     });
+
+    const json: { data: any, errors: GraphQLError[] } = await response.json();
+
+    return {
+      data: json.data,
+      errors: json.errors.map(error => error.message),
+    };
   }
 }
