@@ -13,8 +13,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { HeaderComponent } from './components/header/header.component';
-import { GraphQLModule } from './graphql.module';
-import { HttpClientModule } from '@angular/common/http';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 
 @NgModule({
@@ -32,8 +30,6 @@ import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.com
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    GraphQLModule,
-    HttpClientModule,
     MatDialogModule
   ],
   providers: [],
