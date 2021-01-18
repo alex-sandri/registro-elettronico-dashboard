@@ -13,6 +13,7 @@ export class AppComponent
   title = 'registro-elettronico-dashboard';
 
   showPassword = false;
+  disableButton = false;
 
   @ViewChild("email")
   emailInput?: ElementRef<HTMLInputElement>;
@@ -23,30 +24,31 @@ export class AppComponent
   constructor (private api: ApiService, private dialog: MatDialog)
   {}
 
-  onSubmit(e: Event)
+  async onSubmit(e: Event)
   {
     e.preventDefault();
+
+    this.disableButton = true;
 
     const email = this.emailInput?.nativeElement.value ?? "";
     const password = this.passwordInput?.nativeElement.value ?? "";
 
-    this.api
-      .createAuthToken({ email, password })
-      .then(result =>
-      {
-        if (result.error)
-        {
-          this.dialog.open(AlertDialogComponent, {
-            data: {
-              title: "Errore",
-              message: result.error,
-            },
-          });
-        }
-        else
-        {
-          // TODO: Redirect to account page
-        }
+    const result = await this.api.createAuthToken({ email, password });
+
+    if (result.error)
+    {
+      this.dialog.open(AlertDialogComponent, {
+        data: {
+          title: "Errore",
+          message: result.error,
+        },
       });
+    }
+    else
+    {
+      // TODO: Redirect to account page
+    }
+
+    this.disableButton = false;
   }
 }
