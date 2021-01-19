@@ -25,6 +25,14 @@ export type TRetrieveUserResponseDataType =
   firstName: string;
   lastName: string;
   email: string;
+  teachings: {
+    class: {
+      name: string;
+    };
+    subject: {
+      name: string;
+    };
+  }[];
 };
 
 // Mutations
@@ -92,6 +100,17 @@ export class ApiService
             firstName
             lastName
             email
+            teachings
+            {
+              class
+              {
+                name
+              }
+              subject
+              {
+                name
+              }
+            }
           }
         }
       }

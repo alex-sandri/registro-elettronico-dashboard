@@ -8,6 +8,8 @@ import { AuthService } from '../services/auth/auth.service';
 })
 export class AccountComponent
 {
+  public user = this.auth.user;
+
   constructor(private auth: AuthService)
   {}
 }

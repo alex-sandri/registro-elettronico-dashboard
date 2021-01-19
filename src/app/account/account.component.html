@@ -1,5 +1,27 @@
 <app-header></app-header>
 
-<main *ngIf="auth.user">
-    {{auth.user.class.name}}
+<main *ngIf="user" [ngSwitch]="user.type">
+    <h1>{{user.firstName}} {{user.lastName}}</h1>
+    <h4>{{user.email}}</h4>
+    <div *ngSwitchCase="'admin'">
+        <!-- ADMIN -->
+    </div>
+    <div *ngSwitchCase="'student'">
+        <!-- STUDENT -->
+    </div>
+    <div *ngSwitchCase="'teacher'">
+        <!-- TEACHER -->
+        <mat-card *ngFor="let teaching of user.teachings">
+            <mat-card-title>{{teaching.class.name}}</mat-card-title>
+            <mat-card-subtitle>{{teaching.subject.name}}</mat-card-subtitle>
+            <mat-card-actions>
+                <button
+                    mat-raised-button
+                    color="primary"
+                >
+                    Vedi
+                </button> 
+            </mat-card-actions>
+        </mat-card>
+    </div>
 </main>
