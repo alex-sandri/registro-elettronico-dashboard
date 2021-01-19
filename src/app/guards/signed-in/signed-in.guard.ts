@@ -12,6 +12,6 @@ export class SignedInGuard implements CanActivate
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree
   {
-    return localStorage.getItem("token") != null;
+    return localStorage.getItem("user.token") != null;
   }
 }

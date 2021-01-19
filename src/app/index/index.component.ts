@@ -45,7 +45,8 @@ export class IndexComponent
     }
     else if (result.data)
     {
-      localStorage.setItem("token", result.data.id);
+      localStorage.setItem("user.token", result.data.id);
+      localStorage.setItem("user.email", email);
 
       this.router.navigateByUrl("account");
     }

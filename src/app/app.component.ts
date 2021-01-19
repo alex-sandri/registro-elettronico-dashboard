@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from './services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,19 @@ export class AppComponent
 {
   title = 'registro-elettronico-dashboard';
 
-  constructor (router: Router)
+  canLoad = false;
+
+  constructor (auth: AuthService, router: Router)
   {
-    if (localStorage.getItem("token") != null)
+    auth.init().then(user =>
     {
-      router.navigateByUrl("account");
-    }
+      if (user)
+      {
+        console.log(user);
+        router.navigateByUrl("account");
+      }
+
+      this.canLoad = true;
+    });
   }
 }
