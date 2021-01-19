@@ -5,5 +5,9 @@
     <mat-card *ngFor="let student of class.students">
         <mat-card-title>{{student.firstName}} {{student.lastName}}</mat-card-title>
         <mat-card-subtitle>{{student.email}}</mat-card-subtitle>
+        <mat-card *ngFor="let grade of student.grades">
+            <mat-card-title>{{grade.value}} {{grade.subject.name}}</mat-card-title>
+            <mat-card-subtitle>{{grade.timestamp}}</mat-card-subtitle>
+        </mat-card>
     </mat-card>
 </main>
