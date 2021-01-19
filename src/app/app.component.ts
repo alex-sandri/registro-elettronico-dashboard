@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from './services/auth/auth.service';
 
 @Component({
@@ -13,15 +12,10 @@ export class AppComponent
 
   canLoad = false;
 
-  constructor (auth: AuthService, router: Router)
+  constructor (auth: AuthService)
   {
-    auth.init().then(user =>
+    auth.init().then(() =>
     {
-      if (user)
-      {
-        router.navigateByUrl("account");
-      }
-
       this.canLoad = true;
     });
   }
