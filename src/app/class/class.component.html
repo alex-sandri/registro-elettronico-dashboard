@@ -1,0 +1,9 @@
+<app-header></app-header>
+
+<main *ngIf="class">
+    <h1>{{class.name}}</h1>
+    <mat-card *ngFor="let student of class.students">
+        <mat-card-title>{{student.firstName}} {{student.lastName}}</mat-card-title>
+        <mat-card-subtitle>{{student.email}}</mat-card-subtitle>
+    </mat-card>
+</main>

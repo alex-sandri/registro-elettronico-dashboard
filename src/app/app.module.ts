@@ -17,6 +17,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 import { AccountComponent } from './account/account.component';
 import { IndexComponent } from './index/index.component';
+import { ClassComponent } from './class/class.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { IndexComponent } from './index/index.component';
     HeaderComponent,
     AlertDialogComponent,
     AccountComponent,
-    IndexComponent
+    IndexComponent,
+    ClassComponent
   ],
   imports: [
     BrowserModule,

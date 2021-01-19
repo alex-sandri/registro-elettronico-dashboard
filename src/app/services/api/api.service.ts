@@ -35,6 +35,25 @@ export type TRetrieveUserResponseDataType =
   }[];
 };
 
+export type TRetrieveClassResponseDataType =
+{
+  name: string;
+  students: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    grades: {
+      value: number;
+      timestamp: string;
+      description: string;
+      subject: {
+        name: string;
+        description: string;
+      };
+    }[];
+  }[];
+};
+
 // Mutations
 type TCreateAuthTokenResponseDataType = { id: string };
 
@@ -109,6 +128,35 @@ export class ApiService
               subject
               {
                 name
+              }
+            }
+          }
+        }
+      }
+    `);
+  }
+
+  public async retrieveClass({ id }: { id: string }): Promise<IApiServiceResponse<TRetrieveClassResponseDataType>>
+  {
+    return this.send<TRetrieveClassResponseDataType>("class", `
+      {
+        class(id: "${id}")
+        {
+          name
+          students
+          {
+            firstName
+            lastName
+            email
+            grades
+            {
+              value
+              timestamp
+              description
+              subject
+              {
+                name
+                description
               }
             }
           }
