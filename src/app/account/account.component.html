@@ -1,17 +1,17 @@
 <app-header></app-header>
 
-<main *ngIf="user" [ngSwitch]="user.type">
+<main *ngIf="user">
     <h1>{{user.firstName}} {{user.lastName}}</h1>
     <h4>{{user.email}}</h4>
-    <div *ngSwitchCase="'admin'">
+    <div *ngIf="admin">
         <!-- ADMIN -->
     </div>
-    <div *ngSwitchCase="'student'">
+    <div *ngIf="student">
         <!-- STUDENT -->
     </div>
-    <div *ngSwitchCase="'teacher'">
+    <div *ngIf="teacher">
         <!-- TEACHER -->
-        <mat-card *ngFor="let teaching of user.teachings">
+        <mat-card *ngFor="let teaching of teacher.teachings">
             <mat-card-title>{{teaching.class.name}}</mat-card-title>
             <mat-card-subtitle>{{teaching.subject.name}}</mat-card-subtitle>
             <mat-card-actions>
