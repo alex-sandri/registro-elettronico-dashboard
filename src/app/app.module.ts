@@ -14,12 +14,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { HeaderComponent } from './components/header/header.component';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    AlertDialogComponent
+    AlertDialogComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
