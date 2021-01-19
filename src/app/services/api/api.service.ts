@@ -2,8 +2,26 @@ import { Injectable } from '@angular/core';
 import { GraphQLError } from 'graphql';
 
 // Queries
-export type TRetrieveUserResponseDataType = {
-  type: "admin" | "student" | "teacher";
+export type TRetrieveUserResponseDataType =
+{
+  type: "admin";
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+|
+{
+  type: "student";
+  firstName: string;
+  lastName: string;
+  email: string;
+  class: {
+    string: string;
+  };
+}
+|
+{
+  type: "teacher";
   firstName: string;
   lastName: string;
   email: string;
@@ -48,12 +66,33 @@ export class ApiService
   {
     return this.send<TRetrieveUserResponseDataType>("user", `
       {
-        user(email: "${email}")
+        user(id: "${email}")
         {
-          type
-          firstName
-          lastName
-          email
+          ... on Admin
+          {
+            type
+            firstName
+            lastName
+            email
+          }
+          ... on Student
+          {
+            type
+            firstName
+            lastName
+            email
+            class
+            {
+              name
+            }
+          }
+          ... on Teacher
+          {
+            type
+            firstName
+            lastName
+            email
+          }
         }
       }
     `);

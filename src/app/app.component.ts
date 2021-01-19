@@ -19,7 +19,6 @@ export class AppComponent
     {
       if (user)
       {
-        console.log(user);
         router.navigateByUrl("account");
       }
 

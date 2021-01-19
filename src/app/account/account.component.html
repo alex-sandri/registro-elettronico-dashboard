@@ -1,1 +1,5 @@
 <app-header></app-header>
+
+<main *ngIf="auth.user">
+    {{auth.user.class.name}}
+</main>

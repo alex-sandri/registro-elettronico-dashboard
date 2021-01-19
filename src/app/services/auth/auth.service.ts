@@ -22,6 +22,8 @@ export class AuthService
 
     const { data } = await this.api.retrieveUser({ email });
 
+    this.user = data;
+
     return data ?? null;
   }
 }
