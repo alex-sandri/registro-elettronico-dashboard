@@ -35,11 +35,11 @@ export class ApiService
       }),
     });
 
-    const json: { data: any, errors: GraphQLError[] } = await response.json();
+    const json: { data?: any, errors?: GraphQLError[] } = await response.json();
 
     return {
       data: json.data,
-      errors: json.errors.map(error => error.message),
+      errors: json.errors?.map(error => error.message),
     };
   }
 }
