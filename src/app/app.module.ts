@@ -15,13 +15,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { HeaderComponent } from './components/header/header.component';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 import { AccountComponent } from './account/account.component';
+import { IndexComponent } from './index/index.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     AlertDialogComponent,
-    AccountComponent
+    AccountComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,
