@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { AlertDialogComponent } from '../components/alert-dialog/alert-dialog.component';
 import { ApiService } from '../services/api/api.service';
 
@@ -19,7 +20,7 @@ export class IndexComponent
   @ViewChild("password")
   passwordInput?: ElementRef<HTMLInputElement>;
 
-  constructor (private api: ApiService, private dialog: MatDialog)
+  constructor (private api: ApiService, private dialog: MatDialog, private router: Router)
   {}
 
   async onSubmit(e: Event)
@@ -42,9 +43,11 @@ export class IndexComponent
         },
       });
     }
-    else
+    else if (result.data)
     {
-      // TODO: Redirect to account page
+      localStorage.setItem("token", result.data.id);
+
+      this.router.navigateByUrl("account");
     }
 
     this.disableButton = false;
