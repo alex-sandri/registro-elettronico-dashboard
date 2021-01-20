@@ -26,10 +26,7 @@ export class ClassComponent
   public async createGrade(student: string): Promise<void>
   {
     this.dialog.open(CreateGradeDialogComponent, {
-      data: {
-        subject: "",
-        student,
-      },
+      data: { student },
     });
   }
 }

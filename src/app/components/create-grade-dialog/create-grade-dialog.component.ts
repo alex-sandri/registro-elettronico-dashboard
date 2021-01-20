@@ -1,6 +1,8 @@
 import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ApiService } from 'src/app/services/api/api.service';
+import { Moment } from 'moment';
+import { ApiService, TListSubjectsResponseDataType } from 'src/app/services/api/api.service';
 
 @Component({
   selector: 'app-create-grade-dialog',
@@ -9,32 +11,38 @@ import { ApiService } from 'src/app/services/api/api.service';
 })
 export class CreateGradeDialogComponent
 {
-  @ViewChild("value")
-  public valueInput?: ElementRef<HTMLInputElement>;
+  public createGrade = new FormGroup({
+    value: new FormControl(),
+    timestamp: new FormControl(),
+    description: new FormControl(),
+  });
 
-  @ViewChild("timestamp")
-  public timestampInput?: ElementRef<HTMLInputElement>;
+  public subjects?: TListSubjectsResponseDataType[];
 
-  @ViewChild("description")
-  public descriptionInput?: ElementRef<HTMLInputElement>;
+  public subject?: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { student: string; subject: string; }, private api: ApiService)
-  {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { student: string }, private api: ApiService)
+  {
+    api
+      .listSubjects()
+      .then(_ => this.subjects = _.data);
+  }
 
   public async onSubmit(e?: Event): Promise<void>
   {
     e?.preventDefault();
 
-    const value = parseInt(this.valueInput?.nativeElement.value ?? "", 10);
-    const timestamp = this.timestampInput?.nativeElement.value ?? "";
-    const description = this.descriptionInput?.nativeElement.value ?? "";
+    const value: number = this.createGrade.get("value")?.value;
+    const timestamp: Moment = this.createGrade.get("timestamp")?.value;
+    const description: string = this.createGrade.get("description")?.value;
+    const subject = this.subject ?? "";
 
     const result = await this.api.createGrade({
       value,
-      timestamp,
+      timestamp: timestamp.toISOString(),
       description,
       student: this.data.student,
-      subject: this.data.subject,
+      subject,
     });
 
     console.log(result);

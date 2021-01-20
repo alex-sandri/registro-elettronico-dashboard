@@ -54,6 +54,11 @@ export type TRetrieveClassResponseDataType =
   }[];
 };
 
+export type TListSubjectsResponseDataType =
+{
+  name: string[];
+};
+
 // Mutations
 type TCreateAuthTokenResponseDataType = { id: string };
 
@@ -166,6 +171,18 @@ export class ApiService
               }
             }
           }
+        }
+      }
+    `);
+  }
+
+  public async listSubjects(): Promise<IApiServiceResponse<TListSubjectsResponseDataType[]>>
+  {
+    return this.send<TListSubjectsResponseDataType[]>("subjects", `
+      {
+        subjects
+        {
+          name
         }
       }
     `);

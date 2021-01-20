@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import { MatSelectModule } from '@angular/material/select';
 
 import { HeaderComponent } from './components/header/header.component';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
@@ -21,6 +22,7 @@ import { AccountComponent } from './account/account.component';
 import { IndexComponent } from './index/index.component';
 import { ClassComponent } from './class/class.component';
 import { CreateGradeDialogComponent } from './components/create-grade-dialog/create-grade-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { CreateGradeDialogComponent } from './components/create-grade-dialog/cre
     MatDialogModule,
     MatCardModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatSelectModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "it-IT" },

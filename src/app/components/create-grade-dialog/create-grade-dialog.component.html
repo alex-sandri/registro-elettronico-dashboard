@@ -1,11 +1,19 @@
 <h1 mat-dialog-title>Aggiungi voto</h1>
 
 <mat-dialog-content>
-    <form (submit)="onSubmit($event)">
+    <form [formGroup]="createGrade" (submit)="onSubmit($event)">
+        <mat-form-field appearance="outline">
+            <mat-label>Materia</mat-label>
+            <mat-select [(value)]="subject">
+                <mat-option *ngFor="let subject of subjects" [value]="subject.name">
+                    {{subject.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Valore</mat-label>
             <input
-                #value
+                formControlName="value"
 
                 type="number"
                 min="0"
@@ -17,7 +25,7 @@
         <mat-form-field appearance="outline">
             <mat-label>Data</mat-label>
             <input
-                #timestamp
+                formControlName="timestamp"
 
                 required
                 matInput
@@ -29,7 +37,7 @@
         <mat-form-field appearance="outline">
             <mat-label>Descrizione</mat-label>
             <input
-                #value
+                formControlName="description"
 
                 type="text"
                 matInput
