@@ -57,6 +57,12 @@ export type TRetrieveClassResponseDataType =
 // Mutations
 type TCreateAuthTokenResponseDataType = { id: string };
 
+type TCreateGradeResponseDataType = {
+  value: number;
+  timestamp: string;
+  description: string;
+};
+
 interface IApiServiceResponse<T>
 {
   data?: T;
@@ -172,6 +178,31 @@ export class ApiService
       {
         createAuthToken(email: "${email}", password: "${password}")
         { id }
+      }
+    `);
+  }
+
+  public async createGrade({
+    value, timestamp, description, student, subject
+  }: {
+    value: number, timestamp: string, description: string, student: string, subject: string
+  }): Promise<IApiServiceResponse<TCreateGradeResponseDataType>>
+  {
+    return this.send<TCreateGradeResponseDataType>("createGrade", `
+      mutation
+      {
+        createGrade(
+          value: "${value}"
+          timestamp: "${timestamp}"
+          description: "${description}"
+          student: "${student}"
+          subject: "${subject}"
+        )
+        {
+          value
+          timestamp
+          description
+        }
       }
     `);
   }

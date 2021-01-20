@@ -18,6 +18,7 @@ import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.com
 import { AccountComponent } from './account/account.component';
 import { IndexComponent } from './index/index.component';
 import { ClassComponent } from './class/class.component';
+import { CreateGradeDialogComponent } from './components/create-grade-dialog/create-grade-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ClassComponent } from './class/class.component';
     AlertDialogComponent,
     AccountComponent,
     IndexComponent,
-    ClassComponent
+    ClassComponent,
+    CreateGradeDialogComponent
   ],
   imports: [
     BrowserModule,

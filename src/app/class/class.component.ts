@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { CreateGradeDialogComponent } from '../components/create-grade-dialog/create-grade-dialog.component';
 import { ApiService, TRetrieveClassResponseDataType } from '../services/api/api.service';
 
 @Component({
@@ -11,7 +13,7 @@ export class ClassComponent
 {
   public class?: TRetrieveClassResponseDataType;
 
-  constructor(api: ApiService, route: ActivatedRoute)
+  constructor(api: ApiService, route: ActivatedRoute, private dialog: MatDialog)
   {
     api
       .retrieveClass({ id: route.snapshot.params["id"] })
@@ -19,5 +21,10 @@ export class ClassComponent
       {
         this.class = result.data;
       });
+  }
+
+  public async createGrade(): Promise<void>
+  {
+    this.dialog.open(CreateGradeDialogComponent);
   }
 }

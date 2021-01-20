@@ -9,5 +9,14 @@
             <mat-card-title>{{grade.value}} {{grade.subject.name}}</mat-card-title>
             <mat-card-subtitle>{{grade.timestamp}}</mat-card-subtitle>
         </mat-card>
+        <mat-card-actions>
+            <button
+                (click)="createGrade()"
+                mat-raised-button
+                color="primary"
+            >
+                Aggiungi voto
+            </button>
+        </mat-card-actions>
     </mat-card>
 </main>
