@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -46,7 +46,9 @@ import { CreateGradeDialogComponent } from './components/create-grade-dialog/cre
     MatDatepickerModule,
     MatMomentDateModule
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: "it-IT" },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
