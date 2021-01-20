@@ -44,7 +44,5 @@ export class CreateGradeDialogComponent
       student: this.data.student,
       subject,
     });
-
-    console.log(result);
   }
 }
