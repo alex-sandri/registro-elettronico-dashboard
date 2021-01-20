@@ -15,8 +15,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
-import { HeaderComponent } from './components/header/header.component';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 import { AccountComponent } from './account/account.component';
 import { IndexComponent } from './index/index.component';
@@ -27,7 +27,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     AlertDialogComponent,
     AccountComponent,
     IndexComponent,
@@ -48,7 +47,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDatepickerModule,
     MatMomentDateModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSidenavModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "it-IT" },

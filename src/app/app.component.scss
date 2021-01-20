@@ -1,0 +1,23 @@
+mat-sidenav-container
+{
+    height: 100%;
+}
+
+mat-sidenav-content
+{
+    display: grid;
+    grid-template-areas:
+        "header"
+        "main";
+    grid-template-rows: min-content auto;
+}
+
+mat-toolbar
+{
+    grid-area: header;
+}
+
+router-outlet
+{
+    display: none;
+}

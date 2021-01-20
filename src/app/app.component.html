@@ -1,1 +1,14 @@
-<router-outlet *ngIf="canLoad"></router-outlet>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side">
+        <h1>Menu</h1>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar>
+            <button mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span>Registro Elettronico</span>
+        </mat-toolbar>
+        <router-outlet *ngIf="canLoad"></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
