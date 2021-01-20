@@ -12,6 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
 
 import { HeaderComponent } from './components/header/header.component';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
@@ -40,7 +42,9 @@ import { CreateGradeDialogComponent } from './components/create-grade-dialog/cre
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    MatCardModule
+    MatCardModule,
+    MatDatepickerModule,
+    MatMomentDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

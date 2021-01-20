@@ -1,11 +1,46 @@
 <h1 mat-dialog-title>Aggiungi voto</h1>
 
 <mat-dialog-content>
+    <form (submit)="onSubmit($event)">
+        <mat-form-field appearance="outline">
+            <mat-label>Valore</mat-label>
+            <input
+                #value
 
+                type="number"
+                min="0"
+                max="10"
+                required
+                matInput
+            >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Data</mat-label>
+            <input
+                #timestamp
+
+                required
+                matInput
+                [matDatepicker]="picker"
+            >
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Descrizione</mat-label>
+            <input
+                #value
+
+                type="text"
+                matInput
+            >
+        </mat-form-field>
+    </form>
 </mat-dialog-content>
 
 <mat-dialog-actions>
     <button
+        (click)="onSubmit()"
         mat-raised-button
         color="primary"
     >
