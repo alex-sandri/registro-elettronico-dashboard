@@ -192,7 +192,7 @@ export class ApiService
       mutation
       {
         createGrade(
-          value: "${value}"
+          value: ${value}
           timestamp: "${timestamp}"
           description: "${description}"
           student: "${student}"
