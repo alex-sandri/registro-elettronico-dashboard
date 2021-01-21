@@ -4,11 +4,13 @@ import { AccountComponent } from './account/account.component';
 import { ClassComponent } from './class/class.component';
 import { SignedInGuard } from './guards/signed-in/signed-in.guard';
 import { IndexComponent } from './index/index.component';
+import { StudentComponent } from './student/student.component';
 
 const routes: Routes = [
   { path: "", component: IndexComponent },
   { path: "account", component: AccountComponent, canActivate: [ SignedInGuard ] },
   { path: "class/:id", component: ClassComponent, canActivate: [ SignedInGuard ] },
+  { path: "student/:id", component: StudentComponent, canActivate: [ SignedInGuard ] },
 ];
 
 @NgModule({

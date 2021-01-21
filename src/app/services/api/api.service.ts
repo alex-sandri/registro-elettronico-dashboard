@@ -2,14 +2,7 @@ import { Injectable } from '@angular/core';
 import { GraphQLError } from 'graphql';
 
 // Queries
-export type TRetrieveUserResponseDataType =
-{
-  type: "admin";
-  firstName: string;
-  lastName: string;
-  email: string;
-}
-|
+export type TRetrieveStudentResponseDataType =
 {
   type: "student";
   firstName: string;
@@ -18,7 +11,26 @@ export type TRetrieveUserResponseDataType =
   class: {
     string: string;
   };
+  grades: {
+    value: number;
+    timestamp: string;
+    description: string;
+    subject: {
+      name: string;
+      description: string;
+    };
+  }[];
+};
+
+export type TRetrieveUserResponseDataType =
+{
+  type: "admin";
+  firstName: string;
+  lastName: string;
+  email: string;
 }
+|
+TRetrieveStudentResponseDataType
 |
 {
   type: "teacher";
@@ -37,15 +49,6 @@ export type TRetrieveClassResponseDataType =
     firstName: string;
     lastName: string;
     email: string;
-    grades: {
-      value: number;
-      timestamp: string;
-      description: string;
-      subject: {
-        name: string;
-        description: string;
-      };
-    }[];
   }[];
 };
 
@@ -135,6 +138,36 @@ export class ApiService
     `);
   }
 
+  public async retrieveStudent({ id }: { id: string }): Promise<IApiServiceResponse<TRetrieveStudentResponseDataType>>
+  {
+    return this.send<TRetrieveStudentResponseDataType>("student", `
+      {
+        student(id: "${id}")
+        {
+          type
+          firstName
+          lastName
+          email
+          class
+          {
+            name
+          }
+          grades
+          {
+            value
+            timestamp
+            description
+            subject
+            {
+              name
+              description
+            }
+          }
+        }
+      }
+    `);
+  }
+
   public async retrieveClass({ id }: { id: string }): Promise<IApiServiceResponse<TRetrieveClassResponseDataType>>
   {
     return this.send<TRetrieveClassResponseDataType>("class", `
@@ -147,17 +180,6 @@ export class ApiService
             firstName
             lastName
             email
-            grades
-            {
-              value
-              timestamp
-              description
-              subject
-              {
-                name
-                description
-              }
-            }
           }
         }
       }
