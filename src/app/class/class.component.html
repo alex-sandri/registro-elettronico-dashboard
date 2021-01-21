@@ -5,9 +5,16 @@
         <mat-card-subtitle>{{student.email}}</mat-card-subtitle>
         <mat-card-actions>
             <button
-                (click)="createGrade(student.email)"
+                routerLink="/student/{{student.email}}"
                 mat-raised-button
                 color="primary"
+            >
+                Vedi
+            </button>
+            <button
+                (click)="createGrade(student.email)"
+                mat-raised-button
+                color="accent"
             >
                 Aggiungi voto
             </button>
