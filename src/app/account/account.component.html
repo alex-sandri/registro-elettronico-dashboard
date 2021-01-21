@@ -7,12 +7,11 @@
     </div>
     <div *ngIf="teacher">
         <!-- TEACHER -->
-        <mat-card *ngFor="let teaching of teacher.teachings">
-            <mat-card-title>{{teaching.class.name}}</mat-card-title>
-            <mat-card-subtitle>{{teaching.subject.name}}</mat-card-subtitle>
+        <mat-card *ngFor="let class of teacher.classes">
+            <mat-card-title>{{class.name}}</mat-card-title>
             <mat-card-actions>
                 <button
-                    routerLink="/class/{{teaching.class.name}}"
+                    routerLink="/class/{{class.name}}"
                     mat-raised-button
                     color="primary"
                 >

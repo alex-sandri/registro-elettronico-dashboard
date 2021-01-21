@@ -25,13 +25,8 @@ export type TRetrieveUserResponseDataType =
   firstName: string;
   lastName: string;
   email: string;
-  teachings: {
-    class: {
-      name: string;
-    };
-    subject: {
-      name: string;
-    };
+  classes: {
+    name: string;
   }[];
 };
 
@@ -130,16 +125,9 @@ export class ApiService
             firstName
             lastName
             email
-            teachings
+            classes
             {
-              class
-              {
-                name
-              }
-              subject
-              {
-                name
-              }
+              name
             }
           }
         }
