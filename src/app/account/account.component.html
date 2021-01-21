@@ -7,6 +7,7 @@
     </div>
     <div *ngIf="teacher">
         <!-- TEACHER -->
+        <h1>Le mie classi</h1>
         <mat-card *ngFor="let class of teacher.classes">
             <mat-card-title>{{class.name}}</mat-card-title>
             <mat-card-actions>
