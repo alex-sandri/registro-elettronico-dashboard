@@ -11,6 +11,15 @@ export class StudentComponent
 {
   public student?: TRetrieveStudentResponseDataType;
 
+  public subjects: {
+    name: string;
+    grades: {
+      value: number;
+      timestamp: string;
+      description: string;
+    }[];
+  }[] = [];
+
   constructor(api: ApiService, route: ActivatedRoute)
   {
     api
@@ -18,6 +27,19 @@ export class StudentComponent
       .then(result =>
       {
         this.student = result.data;
+
+        const subjects = new Set(this.student?.grades.map(_ => _.subject.name));
+
+        subjects.forEach(subject => this.subjects.push({
+          name: subject,
+          grades: this.student?.grades
+            .filter(grade => grade.subject.name === subject)
+            .map(_ => ({
+              value: _.value,
+              timestamp: new Date(_.timestamp).toLocaleDateString(),
+              description: _.description
+            })) ?? [],
+        }));
       });
   }
 }

@@ -1,8 +1,19 @@
 <main *ngIf="student">
     <h1>{{student.firstName}} {{student.lastName}}</h1>
     <h4>{{student.email}}</h4>
-    <mat-card *ngFor="let grade of student.grades">
-        <mat-card-title>{{grade.value}} {{grade.subject.name}}</mat-card-title>
-        <mat-card-subtitle>{{grade.timestamp}}</mat-card-subtitle>
-    </mat-card>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let subject of subjects">
+            <mat-expansion-panel-header>
+                <mat-panel-title>{{subject.name}}</mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list>
+                <mat-list-item *ngFor="let grade of subject.grades">
+                    <h1 matLine>{{grade.value}}</h1>
+                    <p matLine>{{grade.timestamp}}</p>
+                    <p matLine>{{grade.description}}</p>
+                    <mat-divider></mat-divider>
+                </mat-list-item>
+            </mat-list>
+        </mat-expansion-panel>
+    </mat-accordion>
 </main>

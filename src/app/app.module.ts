@@ -16,6 +16,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 import { AccountComponent } from './account/account.component';
@@ -50,7 +53,10 @@ import { StudentComponent } from './student/student.component';
     MatMomentDateModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatExpansionModule,
+    MatListModule,
+    MatDividerModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "it-IT" },
