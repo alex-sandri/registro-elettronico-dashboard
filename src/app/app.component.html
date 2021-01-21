@@ -1,6 +1,17 @@
 <mat-sidenav-container>
     <mat-sidenav #sidenav mode="side">
-        <h1>Menu</h1>
+        <div *ngIf="user">
+            <h1>{{user.firstName}} {{user.lastName}}</h1>
+            <h4>{{user.email}}</h4>
+            <button
+                routerLink="account"
+
+                mat-raised-button
+                color="primary"
+            >
+                Account
+            </button>
+        </div>
     </mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar>
