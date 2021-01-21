@@ -1,5 +1,6 @@
 <main *ngIf="student">
-    <h1>{{student.firstName}}</h1>
+    <h1>{{student.firstName}} {{student.lastName}}</h1>
+    <h4>{{student.email}}</h4>
     <mat-card *ngFor="let grade of student.grades">
         <mat-card-title>{{grade.value}} {{grade.subject.name}}</mat-card-title>
         <mat-card-subtitle>{{grade.timestamp}}</mat-card-subtitle>
