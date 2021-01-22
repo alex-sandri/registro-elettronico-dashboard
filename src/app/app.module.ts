@@ -31,6 +31,7 @@ import { CreateGradeDialogComponent } from './components/create-grade-dialog/cre
 import { ReactiveFormsModule } from '@angular/forms';
 import { StudentComponent } from './student/student.component';
 import { ClassListComponent } from './components/class-list/class-list.component';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ClassListComponent } from './components/class-list/class-list.component
     ClassComponent,
     CreateGradeDialogComponent,
     StudentComponent,
-    ClassListComponent
+    ClassListComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { CreateGradeDialogComponent } from '../components/create-grade-dialog/create-grade-dialog.component';
 import { ApiService, TRetrieveClassResponseDataType } from '../services/api/api.service';
 
 @Component({
@@ -21,12 +20,5 @@ export class ClassComponent
       {
         this.class = result.data;
       });
-  }
-
-  public async createGrade(student: string): Promise<void>
-  {
-    this.dialog.open(CreateGradeDialogComponent, {
-      data: { student },
-    });
   }
 }

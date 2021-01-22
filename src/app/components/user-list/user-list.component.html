@@ -1,0 +1,22 @@
+<ng-container *ngIf="students">
+    <mat-card *ngFor="let student of students">
+        <mat-card-title>{{student.firstName}} {{student.lastName}}</mat-card-title>
+        <mat-card-subtitle>{{student.email}}</mat-card-subtitle>
+        <mat-card-actions>
+            <button
+                routerLink="/student/{{student.email}}"
+                mat-raised-button
+                color="primary"
+            >
+                Vedi
+            </button>
+            <button
+                (click)="createGrade(student.email)"
+                mat-raised-button
+                color="accent"
+            >
+                Aggiungi voto
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</ng-container>

@@ -43,7 +43,7 @@ export type TListStudentsResponseDataType =
   lastName: string;
   email: string;
   class: {
-    string: string;
+    name: string;
   };
 }[];
 

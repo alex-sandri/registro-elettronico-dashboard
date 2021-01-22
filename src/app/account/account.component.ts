@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ApiService, TListClassesResponseDataType } from '../services/api/api.service';
+import { ApiService, TListClassesResponseDataType, TListStudentsResponseDataType } from '../services/api/api.service';
 import { AuthService } from '../services/auth/auth.service';
 
 @Component({
@@ -16,11 +16,16 @@ export class AccountComponent
   public teacher = this.user?.type === "teacher" ? this.user : null;
 
   public classList?: TListClassesResponseDataType;
+  public studentList?: TListStudentsResponseDataType;
 
   constructor(private auth: AuthService, private api: ApiService)
   {
     this.api
       .listClasses()
       .then(_ => this.classList = _.data);
+
+    this.api
+      .listStudents()
+      .then(_ => this.studentList = _.data);
   }
 }
