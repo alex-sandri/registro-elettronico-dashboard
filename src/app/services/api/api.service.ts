@@ -2,6 +2,21 @@ import { Injectable } from '@angular/core';
 import { GraphQLError } from 'graphql';
 
 // Queries
+export type TRetrieveAdminResponseDataType =
+{
+  type: "admin";
+  firstName: string;
+  lastName: string;
+  email: string;
+};
+
+export type TRetrieveAdminsResponseDataType =
+{
+  firstName: string;
+  lastName: string;
+  email: string;
+}[];
+
 export type TRetrieveStudentResponseDataType =
 {
   type: "student";
@@ -22,16 +37,17 @@ export type TRetrieveStudentResponseDataType =
   }[];
 };
 
-export type TRetrieveUserResponseDataType =
+export type TRetrieveStudentsResponseDataType =
 {
-  type: "admin";
   firstName: string;
   lastName: string;
   email: string;
-}
-|
-TRetrieveStudentResponseDataType
-|
+  class: {
+    string: string;
+  };
+}[];
+
+export type TRetrieveTeacherResponseDataType =
 {
   type: "teacher";
   firstName: string;
@@ -41,6 +57,18 @@ TRetrieveStudentResponseDataType
     name: string;
   }[];
 };
+
+export type TRetrieveTeachersResponseDataType =
+{
+  firstName: string;
+  lastName: string;
+  email: string;
+}[];
+
+export type TRetrieveUserResponseDataType =
+| TRetrieveAdminResponseDataType
+| TRetrieveStudentResponseDataType
+| TRetrieveTeacherResponseDataType;
 
 export type TRetrieveClassResponseDataType =
 {
@@ -138,6 +166,20 @@ export class ApiService
     `);
   }
 
+  public async retrieveAdmins(): Promise<IApiServiceResponse<TRetrieveAdminsResponseDataType>>
+  {
+    return this.send<TRetrieveAdminsResponseDataType>("admins", `
+      {
+        admins
+        {
+          firstName
+          lastName
+          email
+        }
+      }
+    `);
+  }
+
   public async retrieveStudent({ id }: { id: string }): Promise<IApiServiceResponse<TRetrieveStudentResponseDataType>>
   {
     return this.send<TRetrieveStudentResponseDataType>("student", `
@@ -163,6 +205,38 @@ export class ApiService
               description
             }
           }
+        }
+      }
+    `);
+  }
+
+  public async retrieveStudents(): Promise<IApiServiceResponse<TRetrieveStudentsResponseDataType>>
+  {
+    return this.send<TRetrieveStudentsResponseDataType>("students", `
+      {
+        students
+        {
+          firstName
+          lastName
+          email
+          class
+          {
+            name
+          }
+        }
+      }
+    `);
+  }
+
+  public async retrieveTeachers(): Promise<IApiServiceResponse<TRetrieveTeachersResponseDataType>>
+  {
+    return this.send<TRetrieveTeachersResponseDataType>("teachers", `
+      {
+        teachers
+        {
+          firstName
+          lastName
+          email
         }
       }
     `);

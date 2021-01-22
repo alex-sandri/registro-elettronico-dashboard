@@ -19,6 +19,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 import { AccountComponent } from './account/account.component';
@@ -56,7 +57,8 @@ import { StudentComponent } from './student/student.component';
     MatSidenavModule,
     MatExpansionModule,
     MatListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTabsModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "it-IT" },

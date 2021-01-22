@@ -1,6 +1,24 @@
 <main *ngIf="user">
     <div *ngIf="admin">
         <!-- ADMIN -->
+        <mat-tab-group>
+            <mat-tab label="Classi">
+
+            </mat-tab>
+            <mat-tab label="Utenti">
+                <mat-tab-group>
+                    <mat-tab label="Amministratori">
+
+                    </mat-tab>
+                    <mat-tab label="Studenti">
+
+                    </mat-tab>
+                    <mat-tab label="Insegnanti">
+
+                    </mat-tab>
+                </mat-tab-group>
+            </mat-tab>
+        </mat-tab-group>
     </div>
     <div *ngIf="student">
         <!-- STUDENT -->
