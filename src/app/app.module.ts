@@ -21,6 +21,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule, MAT_TABS_CONFIG } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 import { AccountComponent } from './account/account.component';
@@ -62,7 +63,8 @@ import { ClassListComponent } from './components/class-list/class-list.component
     MatListModule,
     MatDividerModule,
     MatTabsModule,
-    MatTableModule
+    MatTableModule,
+    MatTooltipModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "it-IT" },

@@ -25,6 +25,7 @@
             <button
                 type="button"
                 mat-icon-button
+                [matTooltip]="showPassword ? 'Hide password' : 'Show password'"
                 matSuffix
                 (click)="showPassword = !showPassword"
                 [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
