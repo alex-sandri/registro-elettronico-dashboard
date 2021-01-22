@@ -30,6 +30,11 @@ mat-sidenav-content
 mat-toolbar
 {
     grid-area: header;
+
+    .spacer
+    {
+        flex: 1 1 auto;
+    }
 }
 
 router-outlet

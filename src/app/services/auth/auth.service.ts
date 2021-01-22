@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiService, TRetrieveUserResponseDataType } from '../api/api.service';
 
 @Injectable({
@@ -8,7 +9,7 @@ export class AuthService
 {
   public user?: TRetrieveUserResponseDataType;
 
-  constructor(private api: ApiService)
+  constructor(private api: ApiService, private router: Router)
   {}
 
   public async init(): Promise<TRetrieveUserResponseDataType | null>
@@ -25,5 +26,12 @@ export class AuthService
     this.user = data;
 
     return data ?? null;
+  }
+
+  public async signOut(): Promise<void>
+  {
+    localStorage.clear();
+
+    this.router.navigateByUrl("/");
   }
 }

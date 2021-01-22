@@ -16,7 +16,7 @@ export class AppComponent
 
   public canLoad = false;
 
-  constructor (auth: AuthService, router: Router)
+  constructor (public auth: AuthService, router: Router)
   {
     auth.init().then(user =>
     {

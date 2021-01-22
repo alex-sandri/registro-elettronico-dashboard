@@ -19,6 +19,15 @@
                 <mat-icon>menu</mat-icon>
             </button>
             <span>Registro Elettronico</span>
+            <span class="spacer"></span>
+            <button
+                *ngIf="user"
+
+                mat-icon-button
+                (click)="auth.signOut()"
+            >
+                <mat-icon>exit_to_app</mat-icon>
+            </button>
         </mat-toolbar>
         <router-outlet *ngIf="canLoad"></router-outlet>
     </mat-sidenav-content>
