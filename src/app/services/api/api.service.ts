@@ -82,12 +82,12 @@ export type TRetrieveClassResponseDataType =
 
 export type TListClassesResponseDataType =
 {
-  name: string[];
+  name: string;
 }[];
 
 export type TListSubjectsResponseDataType =
 {
-  name: string[];
+  name: string;
 }[];
 
 // Mutations

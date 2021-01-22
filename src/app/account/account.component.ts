@@ -15,12 +15,12 @@ export class AccountComponent
   public student = this.user?.type === "student" ? this.user : null;
   public teacher = this.user?.type === "teacher" ? this.user : null;
 
-  public classesList?: TListClassesResponseDataType;
+  public classList?: TListClassesResponseDataType;
 
   constructor(private auth: AuthService, private api: ApiService)
   {
     this.api
       .listClasses()
-      .then(_ => this.classesList = _.data);
+      .then(_ => this.classList = _.data);
   }
 }

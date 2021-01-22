@@ -3,18 +3,7 @@
         <!-- ADMIN -->
         <mat-tab-group>
             <mat-tab label="Classi">
-                <mat-card *ngFor="let class of classesList">
-                    <mat-card-title>{{class.name}}</mat-card-title>
-                    <mat-card-actions>
-                        <button
-                            routerLink="/class/{{class.name}}"
-                            mat-raised-button
-                            color="primary"
-                        >
-                            Vedi
-                        </button> 
-                    </mat-card-actions>
-                </mat-card>
+                <class-list [classes]="classList"></class-list>
             </mat-tab>
             <mat-tab label="Utenti">
                 <mat-tab-group>
@@ -37,17 +26,6 @@
     <div *ngIf="teacher">
         <!-- TEACHER -->
         <h1>Le mie classi</h1>
-        <mat-card *ngFor="let class of teacher.classes">
-            <mat-card-title>{{class.name}}</mat-card-title>
-            <mat-card-actions>
-                <button
-                    routerLink="/class/{{class.name}}"
-                    mat-raised-button
-                    color="primary"
-                >
-                    Vedi
-                </button> 
-            </mat-card-actions>
-        </mat-card>
+        <class-list [classes]="teacher.classes"></class-list>
     </div>
 </main>

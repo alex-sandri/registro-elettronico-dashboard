@@ -1,0 +1,14 @@
+<ng-container *ngIf="classes">
+    <mat-card *ngFor="let class of classes">
+        <mat-card-title>{{class.name}}</mat-card-title>
+        <mat-card-actions>
+            <button
+                routerLink="/class/{{class.name}}"
+                mat-raised-button
+                color="primary"
+            >
+                Vedi
+            </button> 
+        </mat-card-actions>
+    </mat-card>
+</ng-container>
