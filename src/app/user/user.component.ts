@@ -3,11 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService, TRetrieveStudentResponseDataType } from '../services/api/api.service';
 
 @Component({
-  selector: 'app-student',
-  templateUrl: './student.component.html',
-  styleUrls: ['./student.component.scss']
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss']
 })
-export class StudentComponent
+export class UserComponent
 {
   public student?: TRetrieveStudentResponseDataType;
 
