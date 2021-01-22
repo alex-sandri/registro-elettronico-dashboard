@@ -17,7 +17,7 @@ export class CreateGradeDialogComponent
     description: new FormControl(),
   });
 
-  public subjects?: TListSubjectsResponseDataType[];
+  public subjects?: TListSubjectsResponseDataType;
 
   public subject?: string;
 

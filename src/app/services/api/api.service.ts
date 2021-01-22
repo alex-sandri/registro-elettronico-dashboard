@@ -10,7 +10,7 @@ export type TRetrieveAdminResponseDataType =
   email: string;
 };
 
-export type TRetrieveAdminsResponseDataType =
+export type TListAdminsResponseDataType =
 {
   firstName: string;
   lastName: string;
@@ -37,7 +37,7 @@ export type TRetrieveStudentResponseDataType =
   }[];
 };
 
-export type TRetrieveStudentsResponseDataType =
+export type TListStudentsResponseDataType =
 {
   firstName: string;
   lastName: string;
@@ -58,7 +58,7 @@ export type TRetrieveTeacherResponseDataType =
   }[];
 };
 
-export type TRetrieveTeachersResponseDataType =
+export type TListTeachersResponseDataType =
 {
   firstName: string;
   lastName: string;
@@ -80,10 +80,15 @@ export type TRetrieveClassResponseDataType =
   }[];
 };
 
+export type TListClassesResponseDataType =
+{
+  name: string[];
+}[];
+
 export type TListSubjectsResponseDataType =
 {
   name: string[];
-};
+}[];
 
 // Mutations
 type TCreateAuthTokenResponseDataType = { id: string };
@@ -166,9 +171,9 @@ export class ApiService
     `);
   }
 
-  public async retrieveAdmins(): Promise<IApiServiceResponse<TRetrieveAdminsResponseDataType>>
+  public async listAdmins(): Promise<IApiServiceResponse<TListAdminsResponseDataType>>
   {
-    return this.send<TRetrieveAdminsResponseDataType>("admins", `
+    return this.send<TListAdminsResponseDataType>("admins", `
       {
         admins
         {
@@ -210,9 +215,9 @@ export class ApiService
     `);
   }
 
-  public async retrieveStudents(): Promise<IApiServiceResponse<TRetrieveStudentsResponseDataType>>
+  public async listStudents(): Promise<IApiServiceResponse<TListStudentsResponseDataType>>
   {
-    return this.send<TRetrieveStudentsResponseDataType>("students", `
+    return this.send<TListStudentsResponseDataType>("students", `
       {
         students
         {
@@ -228,9 +233,9 @@ export class ApiService
     `);
   }
 
-  public async retrieveTeachers(): Promise<IApiServiceResponse<TRetrieveTeachersResponseDataType>>
+  public async listTeachers(): Promise<IApiServiceResponse<TListTeachersResponseDataType>>
   {
-    return this.send<TRetrieveTeachersResponseDataType>("teachers", `
+    return this.send<TListTeachersResponseDataType>("teachers", `
       {
         teachers
         {
@@ -260,9 +265,21 @@ export class ApiService
     `);
   }
 
-  public async listSubjects(): Promise<IApiServiceResponse<TListSubjectsResponseDataType[]>>
+  public async listClasses(): Promise<IApiServiceResponse<TListClassesResponseDataType>>
   {
-    return this.send<TListSubjectsResponseDataType[]>("subjects", `
+    return this.send<TListClassesResponseDataType>("classes", `
+      {
+        classes
+        {
+          name
+        }
+      }
+    `);
+  }
+
+  public async listSubjects(): Promise<IApiServiceResponse<TListSubjectsResponseDataType>>
+  {
+    return this.send<TListSubjectsResponseDataType>("subjects", `
       {
         subjects
         {

@@ -3,7 +3,18 @@
         <!-- ADMIN -->
         <mat-tab-group>
             <mat-tab label="Classi">
-
+                <mat-card *ngFor="let class of classesList">
+                    <mat-card-title>{{class.name}}</mat-card-title>
+                    <mat-card-actions>
+                        <button
+                            routerLink="/class/{{class.name}}"
+                            mat-raised-button
+                            color="primary"
+                        >
+                            Vedi
+                        </button> 
+                    </mat-card-actions>
+                </mat-card>
             </mat-tab>
             <mat-tab label="Utenti">
                 <mat-tab-group>
