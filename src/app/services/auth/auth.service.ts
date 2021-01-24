@@ -30,6 +30,8 @@ export class AuthService
 
   public async signOut(): Promise<void>
   {
+    this.user = undefined;
+
     localStorage.clear();
 
     this.router.navigateByUrl("/");

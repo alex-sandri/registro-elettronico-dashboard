@@ -1,8 +1,8 @@
 <mat-sidenav-container>
     <mat-sidenav #sidenav mode="side">
-        <div *ngIf="user">
-            <h1>{{user.firstName}} {{user.lastName}}</h1>
-            <h4>{{user.email}}</h4>
+        <div *ngIf="auth.user">
+            <h1>{{auth.user.firstName}} {{auth.user.lastName}}</h1>
+            <h4>{{auth.user.email}}</h4>
             <button
                 routerLink="account"
 
@@ -21,7 +21,7 @@
             <span>Registro Elettronico</span>
             <span class="spacer"></span>
             <button
-                *ngIf="user"
+                *ngIf="auth.user"
 
                 mat-icon-button
                 matTooltip="Esci"
