@@ -1,106 +1,63 @@
 import { Injectable } from '@angular/core';
-import { GraphQLError } from 'graphql';
 
-// Queries
-export type TRetrieveAdminResponseDataType =
+export interface IUser
 {
-  type: "admin";
+  type: "admin" | "student" | "teacher";
   firstName: string;
   lastName: string;
   email: string;
-};
+}
 
-export type TListAdminsResponseDataType =
+export interface IGrade
 {
-  firstName: string;
-  lastName: string;
-  email: string;
-}[];
-
-export type TRetrieveStudentResponseDataType =
-{
-  type: "student";
-  firstName: string;
-  lastName: string;
-  email: string;
-  class: {
-    string: string;
-  };
-  grades: {
-    value: number;
-    timestamp: string;
-    description: string;
-    subject: {
-      name: string;
-      description: string;
-    };
-  }[];
-};
-
-export type TListStudentsResponseDataType =
-{
-  firstName: string;
-  lastName: string;
-  email: string;
-  class: {
-    name: string;
-  };
-}[];
-
-export type TRetrieveTeacherResponseDataType =
-{
-  type: "teacher";
-  firstName: string;
-  lastName: string;
-  email: string;
-  classes: {
-    name: string;
-  }[];
-};
-
-export type TListTeachersResponseDataType =
-{
-  firstName: string;
-  lastName: string;
-  email: string;
-}[];
-
-export type TRetrieveUserResponseDataType =
-| TRetrieveAdminResponseDataType
-| TRetrieveStudentResponseDataType
-| TRetrieveTeacherResponseDataType;
-
-export type TRetrieveClassResponseDataType =
-{
-  name: string;
-  students: {
-    firstName: string;
-    lastName: string;
-    email: string;
-  }[];
-};
-
-export type TListClassesResponseDataType =
-{
-  name: string;
-}[];
-
-export type TListSubjectsResponseDataType =
-{
-  name: string;
-}[];
-
-// Mutations
-type TCreateAuthTokenResponseDataType = { id: string };
-
-type TCreateGradeResponseDataType = {
   value: number;
   timestamp: string;
   description: string;
-};
+  subject: ISubject;
+}
+
+export interface IClass
+{
+  name: string;
+  students: IStudent[];
+}
+
+export interface ISubject
+{
+  name: string;
+  description: string;
+}
+
+export interface IAdmin extends IUser
+{
+  type: "admin";
+}
+
+export interface IStudent extends IUser
+{
+  type: "student";
+  grades: IGrade[];
+  class: IClass;
+}
+
+export interface ITeacher extends IUser
+{
+  type: "teacher";
+}
+
+export interface IAuthToken
+{
+  id: string;
+  type: "admin" | "student" | "teacher";
+  user: IUser;
+}
 
 interface IApiServiceResponse<T>
 {
+  status: {
+    code: number;
+    message: string;
+  };
   data?: T;
   errors?: string[];
 }
@@ -110,218 +67,77 @@ interface IApiServiceResponse<T>
 })
 export class ApiService
 {
-  private readonly ENDPOINT = "http://localhost:4000/graphql";
+  private readonly ENDPOINT = "http://localhost:4000";
 
-  private async send<T>(name: string, query: string): Promise<IApiServiceResponse<T>>
+  private async send(method: "DELETE" | "GET" | "POST" | "PUT", url: string, body?: any): Promise<any>
   {
-    const response = await fetch(this.ENDPOINT, {
-      method: "POST",
+    const response = await fetch(`${this.ENDPOINT}/${url}`, {
+      method,
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("user.token")}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify(body),
     });
 
-    const json: { data?: { [ name: string]: T }, errors?: GraphQLError[] } = await response.json();
+    // No Content
+    if (response.status === 204)
+    {
+      return;
+    }
 
-    return {
-      data: json.data?.[name],
-      errors: json.errors?.map(error => error.message),
-    };
+    return response.json();
   }
 
-  public async retrieveUser({ email }: { email: string }): Promise<IApiServiceResponse<TRetrieveUserResponseDataType>>
+  public async retrieveUser(id: string): Promise<IApiServiceResponse<IUser>>
   {
-    return this.send<TRetrieveUserResponseDataType>("user", `
-      {
-        user(id: "${email}")
-        {
-          ... on Admin
-          {
-            type
-            firstName
-            lastName
-            email
-          }
-          ... on Student
-          {
-            type
-            firstName
-            lastName
-            email
-            class
-            {
-              name
-            }
-          }
-          ... on Teacher
-          {
-            type
-            firstName
-            lastName
-            email
-            classes
-            {
-              name
-            }
-          }
-        }
-      }
-    `);
+    return this.send("GET", `users/${id}`);
   }
 
-  public async listAdmins(): Promise<IApiServiceResponse<TListAdminsResponseDataType>>
+  public async listAdmins(): Promise<IApiServiceResponse<IAdmin[]>>
   {
-    return this.send<TListAdminsResponseDataType>("admins", `
-      {
-        admins
-        {
-          firstName
-          lastName
-          email
-        }
-      }
-    `);
+    return this.send("GET", "admins");
   }
 
-  public async retrieveStudent({ id }: { id: string }): Promise<IApiServiceResponse<TRetrieveStudentResponseDataType>>
+  public async retrieveStudent(id: string): Promise<IApiServiceResponse<IStudent>>
   {
-    return this.send<TRetrieveStudentResponseDataType>("student", `
-      {
-        student(id: "${id}")
-        {
-          type
-          firstName
-          lastName
-          email
-          class
-          {
-            name
-          }
-          grades
-          {
-            value
-            timestamp
-            description
-            subject
-            {
-              name
-              description
-            }
-          }
-        }
-      }
-    `);
+    return this.send("GET", `students/${id}`);
   }
 
-  public async listStudents(): Promise<IApiServiceResponse<TListStudentsResponseDataType>>
+  public async listStudents(): Promise<IApiServiceResponse<IStudent[]>>
   {
-    return this.send<TListStudentsResponseDataType>("students", `
-      {
-        students
-        {
-          firstName
-          lastName
-          email
-          class
-          {
-            name
-          }
-        }
-      }
-    `);
+    return this.send("GET", "students");
   }
 
-  public async listTeachers(): Promise<IApiServiceResponse<TListTeachersResponseDataType>>
+  public async listTeachers(): Promise<IApiServiceResponse<ITeacher[]>>
   {
-    return this.send<TListTeachersResponseDataType>("teachers", `
-      {
-        teachers
-        {
-          firstName
-          lastName
-          email
-        }
-      }
-    `);
+    return this.send("GET", "teachers");
   }
 
-  public async retrieveClass({ id }: { id: string }): Promise<IApiServiceResponse<TRetrieveClassResponseDataType>>
+  public async retrieveClass(id: string): Promise<IApiServiceResponse<IClass>>
   {
-    return this.send<TRetrieveClassResponseDataType>("class", `
-      {
-        class(id: "${id}")
-        {
-          name
-          students
-          {
-            firstName
-            lastName
-            email
-          }
-        }
-      }
-    `);
+    return this.send("GET", `classes/${id}`);
   }
 
-  public async listClasses(): Promise<IApiServiceResponse<TListClassesResponseDataType>>
+  public async listClasses(): Promise<IApiServiceResponse<IClass[]>>
   {
-    return this.send<TListClassesResponseDataType>("classes", `
-      {
-        classes
-        {
-          name
-        }
-      }
-    `);
+    return this.send("GET", "classes");
   }
 
-  public async listSubjects(): Promise<IApiServiceResponse<TListSubjectsResponseDataType>>
+  public async listSubjects(): Promise<IApiServiceResponse<ISubject[]>>
   {
-    return this.send<TListSubjectsResponseDataType>("subjects", `
-      {
-        subjects
-        {
-          name
-        }
-      }
-    `);
+    return this.send("GET", "subjects");
   }
 
-  public async createAuthToken({ email, password }: { email: string, password: string }): Promise<IApiServiceResponse<TCreateAuthTokenResponseDataType>>
+  public async createAuthToken(credentials: { email: string, password: string }): Promise<IApiServiceResponse<IAuthToken>>
   {
-    return this.send<TCreateAuthTokenResponseDataType>("createAuthToken", `
-      mutation
-      {
-        createAuthToken(email: "${email}", password: "${password}")
-        { id }
-      }
-    `);
+    return this.send("POST", "tokens", credentials);
   }
 
-  public async createGrade({
-    value, timestamp, description, student, subject
-  }: {
+  public async createGrade(data: {
     value: number, timestamp: string, description: string, student: string, subject: string
-  }): Promise<IApiServiceResponse<TCreateGradeResponseDataType>>
+  }): Promise<IApiServiceResponse<IGrade>>
   {
-    return this.send<TCreateGradeResponseDataType>("createGrade", `
-      mutation
-      {
-        createGrade(
-          value: ${value}
-          timestamp: "${timestamp}"
-          description: "${description}"
-          student: "${student}"
-          subject: "${subject}"
-        )
-        {
-          value
-          timestamp
-          description
-        }
-      }
-    `);
+    return this.send("POST", "grades", data);
   }
 }
