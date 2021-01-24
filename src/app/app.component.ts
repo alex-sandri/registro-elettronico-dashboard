@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { TRetrieveUserResponseDataType } from './services/api/api.service';
+import { IUser } from './services/api/api.service';
 import { AuthService } from './services/auth/auth.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class AppComponent
 {
   title = 'registro-elettronico-dashboard';
 
-  public user?: TRetrieveUserResponseDataType;
+  public user?: IUser;
 
   public canLoad = false;
 

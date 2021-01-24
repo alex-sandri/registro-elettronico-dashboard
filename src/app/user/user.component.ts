@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService, TRetrieveStudentResponseDataType } from '../services/api/api.service';
+import { ApiService, IStudent } from '../services/api/api.service';
 
 @Component({
   selector: 'app-user',
@@ -9,7 +9,7 @@ import { ApiService, TRetrieveStudentResponseDataType } from '../services/api/ap
 })
 export class UserComponent
 {
-  public student?: TRetrieveStudentResponseDataType;
+  public student?: IStudent;
 
   public subjects: {
     name: string;
@@ -23,7 +23,7 @@ export class UserComponent
   constructor(api: ApiService, route: ActivatedRoute)
   {
     api
-      .retrieveStudent({ id: route.snapshot.params["id"] })
+      .retrieveStudent(route.snapshot.params["id"])
       .then(result =>
       {
         this.student = result.data;

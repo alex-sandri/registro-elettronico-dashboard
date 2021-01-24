@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService, TRetrieveClassResponseDataType } from '../services/api/api.service';
+import { ApiService, IClass } from '../services/api/api.service';
 
 @Component({
   selector: 'app-class',
@@ -10,12 +9,12 @@ import { ApiService, TRetrieveClassResponseDataType } from '../services/api/api.
 })
 export class ClassComponent
 {
-  public class?: TRetrieveClassResponseDataType;
+  public class?: IClass;
 
-  constructor(api: ApiService, route: ActivatedRoute, private dialog: MatDialog)
+  constructor(api: ApiService, route: ActivatedRoute)
   {
     api
-      .retrieveClass({ id: route.snapshot.params["id"] })
+      .retrieveClass(route.snapshot.params["id"])
       .then(result =>
       {
         this.class = result.data;

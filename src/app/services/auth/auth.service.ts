@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService, TRetrieveUserResponseDataType } from '../api/api.service';
+import { ApiService, IUser } from '../api/api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService
 {
-  public user?: TRetrieveUserResponseDataType;
+  public user?: IUser;
 
   constructor(private api: ApiService, private router: Router)
   {}
 
-  public async init(): Promise<TRetrieveUserResponseDataType | null>
+  public async init(): Promise<IUser | null>
   {
     const email = localStorage.getItem("user.email");
 
@@ -21,7 +21,7 @@ export class AuthService
       return null;
     }
 
-    const { data } = await this.api.retrieveUser({ email });
+    const { data } = await this.api.retrieveUser(email);
 
     this.user = data;
 

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TListClassesResponseDataType } from 'src/app/services/api/api.service';
+import { IClass } from 'src/app/services/api/api.service';
 
 @Component({
   selector: 'class-list',
@@ -9,5 +9,5 @@ import { TListClassesResponseDataType } from 'src/app/services/api/api.service';
 export class ClassListComponent
 {
   @Input("classes")
-  public classes?: TListClassesResponseDataType;
+  public classes?: IClass[];
 }

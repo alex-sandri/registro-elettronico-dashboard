@@ -1,8 +1,8 @@
-import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Moment } from 'moment';
-import { ApiService, TListSubjectsResponseDataType } from 'src/app/services/api/api.service';
+import { ApiService, ISubject } from 'src/app/services/api/api.service';
 
 @Component({
   selector: 'app-create-grade-dialog',
@@ -17,7 +17,7 @@ export class CreateGradeDialogComponent
     description: new FormControl(),
   });
 
-  public subjects?: TListSubjectsResponseDataType;
+  public subjects?: ISubject[];
 
   public subject?: string;
 
@@ -37,7 +37,7 @@ export class CreateGradeDialogComponent
     const description: string = this.createGrade.get("description")?.value;
     const subject = this.subject ?? "";
 
-    const result = await this.api.createGrade({
+    await this.api.createGrade({
       value,
       timestamp: timestamp.toISOString(),
       description,
