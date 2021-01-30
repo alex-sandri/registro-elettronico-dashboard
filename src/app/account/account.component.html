@@ -6,7 +6,11 @@
                 <class-list [classes]="classList"></class-list>
             </mat-tab>
             <mat-tab label="Utenti">
-                <user-list [students]="studentList"></user-list>
+                <user-list
+                    [admins]="adminList"
+                    [students]="studentList"
+                    [teachers]="teacherList"
+                ></user-list>
             </mat-tab>
         </mat-tab-group>
     </div>

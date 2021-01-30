@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { IAdmin, IStudent, ITeacher } from 'src/app/services/api/api.service';
 import { CreateGradeDialogComponent } from '../create-grade-dialog/create-grade-dialog.component';
 
 @Component({
@@ -9,16 +10,14 @@ import { CreateGradeDialogComponent } from '../create-grade-dialog/create-grade-
 })
 export class UserListComponent
 {
-  // TODO: Support every type of user
+  @Input("admins")
+  public admins?: IAdmin[];
+
   @Input("students")
-  public students?: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    class?: {
-      name: string;
-    };
-  }[];
+  public students?: IStudent[];
+
+  @Input("teachers")
+  public teachers?: ITeacher[];
 
   constructor (private dialog: MatDialog)
   {}

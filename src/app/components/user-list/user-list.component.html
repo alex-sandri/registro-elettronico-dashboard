@@ -1,3 +1,19 @@
+<ng-container *ngIf="admins">
+    <mat-card *ngFor="let admin of admins">
+        <mat-card-title>{{admin.firstName}} {{admin.lastName}}</mat-card-title>
+        <mat-card-subtitle>{{admin.email}}</mat-card-subtitle>
+        <mat-card-actions>
+            <button
+                routerLink="/user/{{admin.email}}"
+                mat-raised-button
+                color="primary"
+            >
+                Vedi
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</ng-container>
+
 <ng-container *ngIf="students">
     <mat-card *ngFor="let student of students">
         <mat-card-title>{{student.firstName}} {{student.lastName}}</mat-card-title>
@@ -16,6 +32,22 @@
                 color="accent"
             >
                 Aggiungi voto
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</ng-container>
+
+<ng-container *ngIf="teachers">
+    <mat-card *ngFor="let teacher of teachers">
+        <mat-card-title>{{teacher.firstName}} {{teacher.lastName}}</mat-card-title>
+        <mat-card-subtitle>{{teacher.email}}</mat-card-subtitle>
+        <mat-card-actions>
+            <button
+                routerLink="/user/{{teacher.email}}"
+                mat-raised-button
+                color="primary"
+            >
+                Vedi
             </button>
         </mat-card-actions>
     </mat-card>
