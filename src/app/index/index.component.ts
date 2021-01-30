@@ -32,7 +32,7 @@ export class IndexComponent
     const email = this.emailInput?.nativeElement.value ?? "";
     const password = this.passwordInput?.nativeElement.value ?? "";
 
-    const result = await this.api.createAuthToken({ email, password });
+    const result = await this.api.createSession({ email, password });
 
     if (result.errors)
     {

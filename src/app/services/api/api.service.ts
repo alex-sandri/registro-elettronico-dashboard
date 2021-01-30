@@ -14,12 +14,12 @@ export interface IGrade
   timestamp: string;
   description: string;
   subject: ISubject;
+  teacher: ITeacher;
 }
 
 export interface IClass
 {
   name: string;
-  students: IStudent[];
 }
 
 export interface ISubject
@@ -36,7 +36,6 @@ export interface IAdmin extends IUser
 export interface IStudent extends IUser
 {
   type: "student";
-  grades: IGrade[];
   class: IClass;
 }
 
@@ -45,7 +44,7 @@ export interface ITeacher extends IUser
   type: "teacher";
 }
 
-export interface IAuthToken
+export interface ISession
 {
   id: string;
   type: "admin" | "student" | "teacher";
@@ -129,9 +128,9 @@ export class ApiService
     return this.send("GET", "subjects");
   }
 
-  public async createAuthToken(credentials: { email: string, password: string }): Promise<IApiServiceResponse<IAuthToken>>
+  public async createSession(credentials: { email: string, password: string }): Promise<IApiServiceResponse<ISession>>
   {
-    return this.send("POST", "tokens", credentials);
+    return this.send("POST", "sessions", credentials);
   }
 
   public async createGrade(data: {
