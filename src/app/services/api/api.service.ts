@@ -53,10 +53,6 @@ export interface ISession
 
 interface IApiServiceResponse<T>
 {
-  status: {
-    code: number;
-    message: string;
-  };
   data?: T;
   errors?: string[];
 }
@@ -85,7 +81,20 @@ export class ApiService
       return;
     }
 
-    return response.json();
+    const result: IApiServiceResponse<any> = {};
+
+    const json = await response.json();
+
+    if (response.status !== 200)
+    {
+      result.errors = [ json.message ];
+    }
+    else
+    {
+      result.data = json;
+    }
+
+    return result;
   }
 
   public async retrieveUser(id: string): Promise<IApiServiceResponse<IUser>>
