@@ -149,7 +149,7 @@ export class ApiService
 
   public async retrieveStudents(className: string): Promise<IApiServiceResponse<IStudent[]>>
   {
-    return this.send("GET", `class/${className}/students`);
+    return this.send("GET", `classes/${className}/students`);
   }
 
   public async createGrade(data: {
