@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AlertDialogComponent } from '../components/alert-dialog/alert-dialog.component';
 import { ApiService } from '../services/api/api.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-index',
@@ -20,7 +21,7 @@ export class IndexComponent
   @ViewChild("password")
   passwordInput?: ElementRef<HTMLInputElement>;
 
-  constructor (private api: ApiService, private dialog: MatDialog, private router: Router)
+  constructor (private api: ApiService, private auth: AuthService, private dialog: MatDialog, private router: Router)
   {}
 
   async onSubmit(e: Event)
@@ -47,6 +48,8 @@ export class IndexComponent
     {
       localStorage.setItem("user.token", result.data.id);
       localStorage.setItem("user.email", email);
+
+      this.auth.user = result.data.user;
 
       this.router.navigateByUrl("account");
     }
