@@ -133,6 +133,16 @@ export class ApiService
     return this.send("POST", "sessions", credentials);
   }
 
+  public async retrieveGrades(student: string): Promise<IApiServiceResponse<IGrade[]>>
+  {
+    return this.send("GET", `students/${student}/grades`);
+  }
+
+  public async retrieveStudents(className: string): Promise<IApiServiceResponse<IStudent[]>>
+  {
+    return this.send("GET", `/class/${className}students`);
+  }
+
   public async createGrade(data: {
     value: number, timestamp: string, description: string, student: string, subject: string
   }): Promise<IApiServiceResponse<IGrade>>

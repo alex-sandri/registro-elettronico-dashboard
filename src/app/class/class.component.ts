@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService, IClass } from '../services/api/api.service';
+import { ApiService, IClass, IStudent } from '../services/api/api.service';
 
 @Component({
   selector: 'app-class',
@@ -11,6 +11,8 @@ export class ClassComponent
 {
   public class?: IClass;
 
+  public students?: IStudent[];
+
   constructor(api: ApiService, route: ActivatedRoute)
   {
     api
@@ -18,6 +20,13 @@ export class ClassComponent
       .then(result =>
       {
         this.class = result.data;
+      });
+
+    api
+      .retrieveStudents(route.snapshot.params["id"])
+      .then(result =>
+      {
+        this.students = result.data;
       });
   }
 }

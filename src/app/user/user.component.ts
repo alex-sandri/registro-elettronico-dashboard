@@ -26,13 +26,19 @@ export class UserComponent
       .retrieveStudent(route.snapshot.params["id"])
       .then(result =>
       {
-        this.student = result.data;
+        this.student = result.data!;
 
-        const subjects = new Set(this.student?.grades.map(_ => _.subject.name));
+        return api.retrieveGrades(this.student.email);
+      })
+      .then(result =>
+      {
+        const grades = result.data!;
+
+        const subjects = new Set(grades.map(_ => _.subject.name));
 
         subjects.forEach(subject => this.subjects.push({
           name: subject,
-          grades: this.student?.grades
+          grades: grades
             .filter(grade => grade.subject.name === subject)
             .map(_ => ({
               value: _.value,
