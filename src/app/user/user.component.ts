@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService, IStudent, IUser } from '../services/api/api.service';
+import { ApiService, IUser } from '../services/api/api.service';
 
 @Component({
   selector: 'app-user',
