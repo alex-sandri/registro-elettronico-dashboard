@@ -107,11 +107,6 @@ export class ApiService
     return this.send("GET", "admins");
   }
 
-  public async retrieveStudent(id: string): Promise<IApiServiceResponse<IStudent>>
-  {
-    return this.send("GET", `students/${id}`);
-  }
-
   public async listStudents(): Promise<IApiServiceResponse<IStudent[]>>
   {
     return this.send("GET", "students");
