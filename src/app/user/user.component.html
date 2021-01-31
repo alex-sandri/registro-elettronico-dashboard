@@ -1,6 +1,20 @@
 <main *ngIf="user">
     <h1>{{user.firstName}} {{user.lastName}}</h1>
     <h4>{{user.email}}</h4>
+    <div *ngIf="auth.user?.type === 'admin'">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button
+                (click)="delete()"
+                mat-menu-item
+                color="warn"
+            >
+                Elimina
+            </button>
+        </mat-menu>
+    </div>
     <mat-card *ngIf="user.type === 'student'">
         <mat-card-title>Voti</mat-card-title>
         <mat-card-actions>
